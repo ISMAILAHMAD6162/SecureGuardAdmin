@@ -4,15 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".DashBaord_Acivity">
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <Button
-        android:id="@+id/reg_site"
-        android:text="Reg New Site"
+        android:id="@+id/open_site_activity_button"
+        android:text="SITES"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     </Button>
@@ -30,7 +30,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity">
+        tools:context=".DashBaord_Acivity">
 
         <ListView
             android:id="@+id/list"

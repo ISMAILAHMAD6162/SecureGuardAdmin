@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -20,62 +21,59 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class SiteActivity extends AppCompatActivity {
 
 
-    Button regNewSiteButon,guardRegButon;
+    Button add_guard_on_site,add_shift_on_site;
     ListView l;
 
-   ArrayList<Site> siteArrayList;
+    ArrayList<Site> siteArrayList;
     ArrayAdapter<Site> arr;
     private FirebaseFirestore db;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onCreate(Bundle savedInstanceState)
+    {
 
-        setContentView(R.layout.activity_main);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_site);
+
 
         siteArrayList=new ArrayList<Site>();
-        regNewSiteButon=findViewById(R.id.reg_site);
-        guardRegButon=findViewById(R.id.guar_profile_reg);
-
-
-
-        guardRegButon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(getApplicationContext(),GuardRegActivity.class);
-                startActivity(intent);
-            }
-        });
-
-
 
         l = findViewById(R.id.list);
         db=FirebaseFirestore.getInstance();
-
         getSiteData();
-
-
         arr = new ArrayAdapter<Site>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, siteArrayList);
         l.setAdapter(arr);
 
+        l.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+              //  Intent intent=new Intent(SiteActivity.this,SiteActivity.class);
+               // startActivity(intent);
+
+                Toast.makeText(getApplicationContext(),String.valueOf(position),Toast.LENGTH_LONG).show();
+
+            }
+        });
 
 
 
-
-
-
-        regNewSiteButon.setOnClickListener(new View.OnClickListener() {
+        add_guard_on_site=findViewById(R.id.add_guard_on_site);
+        add_shift_on_site=findViewById(R.id.add_shift_on_site);
+        add_shift_on_site.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getApplicationContext(),SiteRegActivity.class);
+                Intent intent=new Intent(SiteActivity.this,ShiftRegActivity.class);
                 startActivity(intent);
             }
         });
+
+        //get all profile here from GuardProfile Collection and show in Recyclview with detail and with add buton on view;
+
+
     }
-
-
     public  void getSiteData()
     {
         db.collection("Site").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -83,16 +81,17 @@ public class MainActivity extends AppCompatActivity {
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
 
                 List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
-                for (DocumentSnapshot d : list) {
+                for (DocumentSnapshot d : list)
+                {
                     // after getting this list we are passing
                     // that list to our object class.
                     Site obj = d.toObject(Site.class);
-
                     // and we will pass this object class
                     // inside our arraylist which we have
                     // created for recycler view.
+
                     siteArrayList.add(obj);
-//                    l.notify();
+//                  l.notify();
 
                 }
 
@@ -101,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
                 // method to notify that data has been changed in recycler view.
 
                 arr.notifyDataSetChanged();
-                Toast.makeText(getApplicationContext(),queryDocumentSnapshots.getDocuments().toString(),Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),siteArrayList.get(0).title,Toast.LENGTH_LONG).show();
 
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -111,5 +110,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-    }
-}
+
+
+
+
+
+}}
