@@ -1,7 +1,6 @@
-package com.secure.secureguardadmin;
+package com.secure.secureguardadmin.Models;
 
 public class Shift {
-
     public String     startTime;
     public String     endTime;
     public String     year;

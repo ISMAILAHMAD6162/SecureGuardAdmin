@@ -3,39 +3,32 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".DashBaord_Acivity">
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <Button
-        android:id="@+id/open_site_activity_button"
-        android:text="SITES"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </Button>
-
-    <Button
-        android:id="@+id/guar_profile_reg"
-        android:text="Guard Profile Registration"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </Button>
 
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".DashBaord_Acivity">
 
-        <ListView
-            android:id="@+id/list"
+        android:weightSum="5"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_weight="5"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-    </LinearLayout>
+            android:layout_height="0dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:orientation="vertical"
+                android:id="@+id/dash_baord_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+        </LinearLayout>
+
+
 </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

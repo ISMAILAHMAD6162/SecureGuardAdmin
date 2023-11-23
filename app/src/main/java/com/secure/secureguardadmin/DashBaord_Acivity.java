@@ -1,30 +1,21 @@
 package com.secure.secureguardadmin;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ListView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
+import com.secure.secureguardadmin.site_managment_activities.SiteActivity;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class DashBaord_Acivity extends AppCompatActivity {
+public class DashBaord_Acivity extends AppCompatActivity implements Dash_Board_ItemInterface{
 
 
-    Button open_site_activity_button,guardRegButon;
+
+    private  RecyclerView dashBoard_recyclerView;
+    String []arr;
 
 
     @Override
@@ -32,26 +23,36 @@ public class DashBaord_Acivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_dashboard);
+        dashBoard_recyclerView=findViewById(R.id.dash_baord_recyclerview);
+        arr=new String[]{"SITE MANAGMENT","GUARDS","REPORTS","ABC","ABC"};
+        DashBoard_RecyclerView dashBoardRecyclerView=new DashBoard_RecyclerView(arr,this::ItemClick);
 
-        open_site_activity_button=findViewById(R.id.open_site_activity_button);
-        guardRegButon=findViewById(R.id.guar_profile_reg);
 
 
-        guardRegButon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(getApplicationContext(),GuardRegActivity.class);
-                startActivity(intent);
-            }
-        });
+        GridLayoutManager layoutManager=new GridLayoutManager(this,2);
 
-        open_site_activity_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(getApplicationContext(),SiteActivity.class);
-                startActivity(intent);
-            }
-        });
+
+        dashBoard_recyclerView.setLayoutManager(layoutManager);
+        dashBoard_recyclerView.setAdapter(dashBoardRecyclerView);
+
+
+
+    }
+
+    @Override
+    public void ItemClick(int pstion) {
+
+        if(pstion==0) {
+            Intent intent = new Intent(getApplicationContext(), SiteActivity.class);
+            startActivity(intent);
+        }
+        if (pstion==1)
+        {
+            Toast.makeText(getApplicationContext(),"postion is"+pstion,Toast.LENGTH_LONG).show();
+
+            Intent guard=new Intent(getApplicationContext(),GuardRegActivity.class);
+            startActivity(guard);
+        }
 
     }
 }

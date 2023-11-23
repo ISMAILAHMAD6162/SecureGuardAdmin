@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ShiftRegActivity">
+    tools:context=".shift_managment.ShiftRegActivity">
 
     <LinearLayout
         android:orientation="vertical"
@@ -13,6 +13,7 @@
 
         <TextView
             android:text="Shift Reg Activity"
+            android:id="@+id/shift_reg_act"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 

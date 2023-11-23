@@ -1,4 +1,4 @@
-package com.secure.secureguardadmin;
+package com.secure.secureguardadmin.Models;
 
 public class Guard {
 
