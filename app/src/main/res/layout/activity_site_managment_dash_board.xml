@@ -15,6 +15,25 @@
        android:layout_height="wrap_content">
 
    </Button>
+   <Button
+       android:text="GUARDS FOR SITE"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+
+   </Button>
+   <Button
+       android:text="NOTES FOR SITE"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+
+   </Button>
+   <Button
+       android:text="CHECK POINTS"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+
+   </Button>
+
    <TextView
        android:text="Site Title"
        android:id="@+id/sit_title_managment"

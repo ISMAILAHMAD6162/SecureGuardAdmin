@@ -90,7 +90,7 @@ public class SiteActivity extends AppCompatActivity implements SiteItemClick{
                     // method to notify that data has been changed in recycler view.
 
                     siteRecycleViewAdapter.notifyDataSetChanged();
-                    Toast.makeText(getApplicationContext(), siteArrayList.get(0).title, Toast.LENGTH_LONG).show();
+                 //   Toast.makeText(getApplicationContext(), siteArrayList.get(0).title, Toast.LENGTH_LONG).show();
 
                 }
             }
@@ -116,6 +116,6 @@ public class SiteActivity extends AppCompatActivity implements SiteItemClick{
         Intent site_managment=new Intent(getApplicationContext(),Site_Managment_DashBoard_Activity.class);
         site_managment.putExtra("ID",siteArrayList.get(index).title);
         startActivity(site_managment);
-        Toast.makeText(getApplicationContext(),"INDEX" +index,Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(),"INDEX" +index,Toast.LENGTH_LONG).show();
     }
 }
