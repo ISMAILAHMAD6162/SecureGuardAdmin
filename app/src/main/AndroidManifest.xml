@@ -16,21 +16,23 @@
         android:theme="@style/Theme.SecureGuardAdmin"
         tools:targetApi="31">
         <activity
+            android:name=".site_managment_activities.CheckPointRegActivity"
+            android:exported="false" />
+        <activity
+            android:name=".site_managment_activities.CheckPoint_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".shift_managment.Shift_Managment_Activity"
+            android:exported="false" />
+        <activity
             android:name=".site_managment_activities.Site_Managment_DashBoard_Activity"
             android:exported="false" />
-
         <activity
             android:name=".DashBaord_Acivity"
-            android:exported="false">
-
-        </activity>
-
+            android:exported="false" />
         <activity
             android:name=".shift_managment.Shift_Activity"
-            android:exported="false">
-
-        </activity>
-
+            android:exported="false" />
         <activity
             android:name=".Forget_Activity"
             android:exported="false" />

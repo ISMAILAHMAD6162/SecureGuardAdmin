@@ -3,42 +3,41 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".site_managment_activities.SiteActivity">
 
     <LinearLayout
-        android:weightSum="5"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="5">
 
         <LinearLayout
-            android:layout_weight="0.8"
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="0dp">
+            android:layout_height="0dp"
+            android:layout_weight="0.8"
+            android:orientation="vertical">
 
             <Button
                 android:id="@+id/add_new_site"
-                android:text="Add new Site"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-            </Button>
+                android:layout_height="match_parent"
+                android:text="Add new Site"></Button>
 
         </LinearLayout>
 
 
         <LinearLayout
-            android:layout_weight="4"
             android:layout_width="match_parent"
-            android:layout_height="0dp">
+            android:layout_height="0dp"
+            android:layout_weight="4">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:orientation="vertical"
                 android:id="@+id/site_item_recyclerview"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
             </androidx.recyclerview.widget.RecyclerView>
 

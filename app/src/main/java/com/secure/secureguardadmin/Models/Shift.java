@@ -8,10 +8,10 @@ public class Shift {
     public String     day;
     public int state;
     public int guardsNo;
-
     //siteIdDateTime+random+number
     public String shiftId;
     public String siteId;
+
 
     public Shift()
     {

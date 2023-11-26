@@ -4,6 +4,8 @@ import static android.content.ContentValues.TAG;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -34,41 +36,51 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
-public class Shift_Activity extends AppCompatActivity {
+public class Shift_Activity extends AppCompatActivity implements ShiftItemClickInterface{
 
-    private TextView site_title;
+   // private TextView site_title;
+    private String site_id;
     private Button add_new_shift;
+    private ShiftRecycelviewAdapter shiftRecycelviewAdapter;
+    private RecyclerView shiftRecycleview;
     private List<String> shiftIdList;
     private ArrayList<Shift> shiftArrayListData;
-
     private FirebaseFirestore db;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shift);
-        site_title = findViewById(R.id.site_title_shift);
+      //  site_title = findViewById(R.id.site_title_shift);
         add_new_shift = findViewById(R.id.add_new_shift);
+        shiftArrayListData=new ArrayList<Shift>();
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+        shiftRecycleview=findViewById(R.id.shift_item_recyclerview);
+        shiftRecycleview.setLayoutManager(linearLayoutManager);
+        shiftRecycelviewAdapter=new ShiftRecycelviewAdapter(shiftArrayListData,this::shiftItemClicklistne);
+        shiftRecycleview.setAdapter(shiftRecycelviewAdapter);
         shiftIdList=new ArrayList<String>();
         Intent intent = getIntent();
         String str = intent.getStringExtra("ID");
+        site_id=str;
         db = FirebaseFirestore.getInstance();
-        site_title.setText(str);
+
         add_new_shift.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent shift = new Intent(getApplicationContext(), ShiftRegActivity.class);
-                shift.putExtra("ID", site_title.getText().toString());
+                shift.putExtra("ID", site_id.toString());
                 startActivity(shift);
             }
         });
-
-        retrieveItemsForMonth(2023,5);
+        retrieveItemsForMonth(2023,11);
 
     }
-    private void retrieveItemsForMonth(int year, int month) {
 
-        CollectionReference siteRotaCollection=db.collection("SiteRota").document(site_title.getText().toString()).collection("Years");
+
+
+      private void retrieveItemsForMonth(int year, int month) {
+
+        CollectionReference siteRotaCollection=db.collection("SiteRota").document(site_id).collection("Years");
 
         CollectionReference monthCollection = siteRotaCollection
                 .document(String.valueOf(year))
@@ -91,7 +103,7 @@ public class Shift_Activity extends AppCompatActivity {
 
                         }
                     }
-                    fetchDataForDocumentIds(shiftIdList);
+                    getShiftData(shiftIdList);
                 } else {
                     Log.d("Firestore", "get failed with ", task.getException());
                 }
@@ -99,35 +111,62 @@ public class Shift_Activity extends AppCompatActivity {
         });
     }
 
+       public void getShiftData(List< String> shiftIds)
+       {
 
 
+           if(shiftIdList.size()>0) {
 
-       public void fetchDataForDocumentIds(List< String> shiftIds) {
-           // Reference to the collection
-           // Replace "your_collection_name" with the actual name of your Firestore collection
-           CollectionReference collectionReference = db.collection("Shift");
+               // Reference to the collection
+               // Replace "your_collection_name" with the actual name of your Firestore collection
+               CollectionReference collectionReference = db.collection("SHIFT");
 
-           // Use the 'whereIn' query to fetch documents based on an array of document IDs
-           collectionReference.whereIn(FieldPath.documentId(), shiftIds)
-                   .get()
-                   .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                       @Override
-                       public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+               // Use the 'whereIn' query to fetch documents based on an array of document IDs
+               collectionReference.whereIn(FieldPath.documentId(), shiftIds)
+                       .get()
+                       .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                           @Override
+                           public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
 
-                         //  Toast.makeText(getApplicationContext(), "get All shift with ID"+queryDocumentSnapshots.getDocuments(), Toast.LENGTH_LONG).show();
+                               //  Toast.makeText(getApplicationContext(), "get All shift with ID"+queryDocumentSnapshots.getDocuments(), Toast.LENGTH_LONG).show();
 
-                           // Handle the query result
-                           // queryDocumentSnapshots contains the documents matching the document IDs
-                           for (DocumentSnapshot document : queryDocumentSnapshots.getDocuments()) {
-                               // Access the data of each document
+                               // Handle the query result
+                               // queryDocumentSnapshots contains the documents matching the document IDs
+                               for (DocumentSnapshot document : queryDocumentSnapshots.getDocuments()) {
+                                   // Access the data of each document
 
-                               Toast.makeText(getApplicationContext(), "get All shift with ID LOOP COUNT"+document.getString("shiftId"), Toast.LENGTH_LONG).show();
+                                   if (queryDocumentSnapshots.size() > 0) {
 
-                               // For example, String field = document.getString("field_name");
+                                       List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
+
+                                       shiftRecycelviewAdapter.notifyDataSetChanged();
+                                       //
+                                       Shift obj = document.toObject(Shift.class);
+                                       shiftArrayListData.add(obj);
+                                       shiftRecycelviewAdapter.notifyDataSetChanged();
+
+                                       Toast.makeText(getApplicationContext(), "get All shift with ID LOOP COUNT" + document.getString("shiftId"), Toast.LENGTH_LONG).show();
+
+                                   }
+                                   // For example, String field = document.getString("field_name");
+                               }
                            }
-                       }
-                   });
+                       });
+           }
+
        }
 
 
+
+    @Override
+    public void shiftItemClicklistne(int index) {
+
+
+        Intent intent=new Intent(getApplicationContext(),Shift_Managment_Activity.class);
+        intent.putExtra("ID",shiftArrayListData.get(index).shiftId);
+
+        startActivity(intent);
+        Toast.makeText(getApplicationContext(), "Click Index" + index, Toast.LENGTH_LONG).show();
+
+    }
 }

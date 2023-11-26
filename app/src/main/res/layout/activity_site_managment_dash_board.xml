@@ -29,6 +29,7 @@
    </Button>
    <Button
        android:text="CHECK POINTS"
+       android:id="@+id/open_check_points"
        android:layout_width="match_parent"
        android:layout_height="wrap_content">
 

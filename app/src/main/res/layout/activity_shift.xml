@@ -8,20 +8,48 @@
     android:layout_height="match_parent"
     tools:context=".shift_managment.Shift_Activity">
 
-    <TextView
-        android:id="@+id/site_title_shift"
-        android:text="Site Title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
-    </TextView>
-    <Button
-        android:id="@+id/add_new_shift"
-        android:text="Add New Shift"
+    <LinearLayout
+        android:weightSum="5"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
-    </Button>
+        <LinearLayout
+            android:layout_weight="0.8"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+
+            <Button
+                android:id="@+id/add_new_shift"
+                android:text="Add new Shift"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </Button>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_weight="4"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:orientation="vertical"
+                android:id="@+id/shift_item_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+        </LinearLayout>
+
+
+
 
 
   </LinearLayout>
+
+</LinearLayout>

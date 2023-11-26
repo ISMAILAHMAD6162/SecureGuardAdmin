@@ -1,4 +1,11 @@
 <resources>
+
+
+
+
+
+
+
     <string name="app_name">Secure Guard Admin</string>
     <string name="title_activity_site_reg">SiteRegActivity</string>
     <!-- Strings used for fragments for navigation -->

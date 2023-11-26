@@ -32,18 +32,18 @@ import java.util.Map;
 
 public class ShiftRegActivity extends AppCompatActivity {
 
+
+    private String siteId;
     private FirebaseFirestore db;
-    private TextView site_title;
     public Button shift_reg_submit_buton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shift_reg);
-        site_title=findViewById(R.id.shift_reg_act);
         Intent intent = getIntent();
         String str = intent.getStringExtra("ID");
-        site_title.setText(str);
+        siteId=str;
         shift_reg_submit_buton=findViewById(R.id.shift_reg_submit_buton);
         db=FirebaseFirestore.getInstance();
 
@@ -51,29 +51,46 @@ public class ShiftRegActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                addShift();
+
+                //outDev
+                //outDev
+                //outDev
+                //outDev
+                /*
+                   need to pass two thing to this function of type string ,one uniquely generated id for shift , and site id which can be get from variable site id which is already just use it
+                   1. state will be always zero
+                   2. guards no will be Always zero
+
+                   rest have to get from front after validations and pass this add shift function
+                 */
+
+                addShift("100",siteId,"7:00","19:00","2023","11","29",0,0);
             }
         });
     }
 
 
-    public void addShift()
+
+    public void addShift(String shiftId,String siteId,String startTime,String endTime,String year,String month,String day,int state,int guardNo)
 
     {
 
-        Shift objDuc=new Shift("22:00","07:00","2011","05","13",0,0,"shift7","eeeabc");
+        // SHIFT ID WILL BE GET FROM PARAMATER OF THIS FUN
 
+        Shift objDuc=new Shift(startTime,endTime,year,month,day,state,guardNo,shiftId,siteId);
 
-        CollectionReference shiftCollectionRef=db.collection("Shift");
+        CollectionReference shiftCollectionRef=db.collection("SHIFT");
 
         shiftCollectionRef.document(objDuc.shiftId).set(objDuc).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
 
 
+                updateSiteRota(objDuc.year,objDuc.month,objDuc.day,objDuc.shiftId);
 
-                Toast.makeText(getApplicationContext(),"added succefulllu",Toast.LENGTH_LONG).show();
-                addScheduleItem(2023,5,6,objDuc.shiftId);
+                //OUT DEV
+                //OUT DEV
+                Toast.makeText(getApplicationContext(), "shift added successfully", Toast.LENGTH_SHORT).show();
 
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -81,22 +98,17 @@ public class ShiftRegActivity extends AppCompatActivity {
             public void onFailure(@NonNull Exception e) {
 
 
-                Toast.makeText(getApplicationContext(),"Not added succefulllu",Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "shift not added successfully", Toast.LENGTH_SHORT).show();
 
             }
         });
 
 
     }
+    private void updateSiteRota(String year, String month, String day, String shiftId) {
 
 
-
-
-    private void addScheduleItem(int year, int month, int day, String item) {
-
-
-        CollectionReference siteRotaCollection=db.collection("SiteRota").document(site_title.getText().toString()).collection("Years");
-
+        CollectionReference siteRotaCollection=db.collection("SiteRota").document(siteId).collection("Years");
         DocumentReference dayDocument = siteRotaCollection
                 .document(String.valueOf(year))
                 .collection("months")
@@ -116,14 +128,14 @@ public class ShiftRegActivity extends AppCompatActivity {
                         if (items == null) {
                             items = new ArrayList<>();
                         }
-                        items.add(item);
+                        items.add(shiftId);
                         Map<String, Object> data = new HashMap<>();
                         data.put("items", items);
                         dayDocument.set(data);
                     } else {
                         // Document does not exist, create a new one with the item
                         List<String> items = new ArrayList<>();
-                        items.add(item);
+                        items.add(shiftId);
                         Map<String, Object> data = new HashMap<>();
                         data.put("items", items);
                         dayDocument.set(data);
@@ -134,47 +146,22 @@ public class ShiftRegActivity extends AppCompatActivity {
 
 
             }
-        });
-    }
-
-
-
-
-
-
-
-
-
-    public void UpdateSiteRota()
-
-    {
-
-        SiteRota objDuc=new SiteRota("shift5","2023","12","3");
-
-        ShiftID shiftID=new ShiftID("Shift5");
-        CollectionReference siteRotaCollection=db.collection("SiteRota");
-
-        siteRotaCollection.document(site_title.getText().toString()).collection("Year").document(objDuc.year).collection("Month").document(objDuc.month).collection("Days").document(objDuc.day).collection("ShiftId").document(objDuc.ShiftId).set(shiftID).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void unused) {
-
-
-
-                Toast.makeText(getApplicationContext(),"Rota Update succefulllu",Toast.LENGTH_LONG).show();
-
-            }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
-            public void onFailure(@NonNull Exception e) {
-
-
-                Toast.makeText(getApplicationContext(),"Not update succefulllu",Toast.LENGTH_LONG).show();
+            public void onFailure(@androidx.annotation.NonNull Exception e) {
 
             }
         });
-
-
     }
+
+
+
+
+
+
+
+
+
 
 
 
