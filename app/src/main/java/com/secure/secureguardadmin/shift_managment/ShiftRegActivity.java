@@ -52,26 +52,15 @@ public class ShiftRegActivity extends AppCompatActivity {
             public void onClick(View v) {
 
 
-                //outDev
-                //outDev
-                //outDev
-                //outDev
-                /*
-                   need to pass two thing to this function of type string ,one uniquely generated id for shift , and site id which can be get from variable site id which is already just use it
-                   1. state will be always zero
-                   2. guards no will be Always zero
 
-                   rest have to get from front after validations and pass this add shift function
-                 */
-
-                addShift("100",siteId,"7:00","19:00","2023","11","29",0,0);
+                addShift("500",siteId,"7:00","19:00","2023","12","16",0,0,siteId);
             }
         });
     }
 
 
 
-    public void addShift(String shiftId,String siteId,String startTime,String endTime,String year,String month,String day,int state,int guardNo)
+    public void addShift(String shiftId,String siteId,String startTime,String endTime,String year,String month,String day,int state,int guardNo,String sitTitle)
 
     {
 

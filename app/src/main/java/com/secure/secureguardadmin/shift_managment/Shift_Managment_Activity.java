@@ -67,7 +67,7 @@ public class Shift_Managment_Activity extends AppCompatActivity {
             shiftCollectionRef.document(shiftId).collection("GUARD").document(guardId).set(data).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void unused) {
-                    updateGuardRota(2023,11,29,shiftId,guardId);
+                    updateGuardRota(2023,11,26,shiftId,guardId);
 
                 }
             }).addOnFailureListener(new OnFailureListener() {

@@ -1,5 +1,4 @@
 package com.secure.secureguardadmin;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -8,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.secure.secureguardadmin.guardManagment.GuardActivity;
 import com.secure.secureguardadmin.site_managment_activities.SiteActivity;
 
 public class DashBaord_Acivity extends AppCompatActivity implements Dash_Board_ItemInterface{
@@ -16,7 +16,6 @@ public class DashBaord_Acivity extends AppCompatActivity implements Dash_Board_I
 
     private  RecyclerView dashBoard_recyclerView;
     String []arr;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +49,7 @@ public class DashBaord_Acivity extends AppCompatActivity implements Dash_Board_I
         {
             Toast.makeText(getApplicationContext(),"postion is"+pstion,Toast.LENGTH_LONG).show();
 
-            Intent guard=new Intent(getApplicationContext(),GuardRegActivity.class);
+            Intent guard=new Intent(getApplicationContext(), GuardActivity.class);
             startActivity(guard);
         }
 

@@ -72,7 +72,7 @@ public class Shift_Activity extends AppCompatActivity implements ShiftItemClickI
                 startActivity(shift);
             }
         });
-        retrieveItemsForMonth(2023,11);
+        retrieveItemsForMonth(2023,12);
 
     }
 

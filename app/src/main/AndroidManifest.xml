@@ -16,6 +16,9 @@
         android:theme="@style/Theme.SecureGuardAdmin"
         tools:targetApi="31">
         <activity
+            android:name=".guardManagment.GuardActivity"
+            android:exported="false" />
+        <activity
             android:name=".site_managment_activities.CheckPointRegActivity"
             android:exported="false" />
         <activity

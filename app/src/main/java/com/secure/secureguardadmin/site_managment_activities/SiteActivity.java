@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -25,7 +26,7 @@ import java.util.List;
 public class SiteActivity extends AppCompatActivity implements SiteItemClick{
 
 
-    Button add_site;
+    ImageView add_site;
     private RecyclerView site_Item_RecycleView;
     private SiteRecycleViewAdapter siteRecycleViewAdapter;
     private ArrayList<Site> siteArrayList;

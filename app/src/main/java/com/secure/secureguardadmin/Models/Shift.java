@@ -29,6 +29,7 @@ public class Shift {
        this.guardsNo=guardsNo;
        this.shiftId=shiftId;
        this.siteId=siteId;
+
     }
 
 
