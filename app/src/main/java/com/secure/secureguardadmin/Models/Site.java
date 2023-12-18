@@ -10,6 +10,8 @@ public class Site {
     public String locationLatitude;
     public String locationLongitude;
     public int state;
+    public int alertState;
+    public int alramState;
     public String email;
     public String phoneNo;
     public String address;
@@ -20,7 +22,7 @@ public Site()
 {
 
 }
-    public Site(String title,String supervisorName,String locationLatitude,String locationLongitude,int state,String siteClientId, String email, String phoneNo, String address, String startDate, String endDate)
+    public Site(String title,String supervisorName,String locationLatitude,String locationLongitude,int state,String siteClientId, String email, String phoneNo, String address, String startDate, String endDate,int alertState,int alramState)
     {
       this.title=title;
       this.supervisorName=supervisorName;
@@ -33,6 +35,8 @@ public Site()
       this.address=address;
       this.startDate=startDate;
       this.endDate=endDate;
+      this.alertState=alertState;
+      this.alramState=alramState;
     }
 
 

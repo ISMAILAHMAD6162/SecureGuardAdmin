@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,9 +30,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 public class ShiftRegActivity extends AppCompatActivity {
 
+
+    EditText y,m,d,s,e,r;
 
     private String siteId;
     private FirebaseFirestore db;
@@ -41,6 +45,14 @@ public class ShiftRegActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shift_reg);
+        y=findViewById(R.id.year);
+        m=findViewById(R.id.month);
+        d=findViewById(R.id.day);
+        s=findViewById(R.id.startTime);
+        e=findViewById(R.id.edntime);
+        r=findViewById(R.id.randomid);
+
+
         Intent intent = getIntent();
         String str = intent.getStringExtra("ID");
         siteId=str;
@@ -52,8 +64,8 @@ public class ShiftRegActivity extends AppCompatActivity {
             public void onClick(View v) {
 
 
-
-                addShift("500",siteId,"7:00","19:00","2023","12","16",0,0,siteId);
+                setData();
+              //  addShift("600",siteId,"12:00","19:00","2023","12","16",0,0,siteId);
             }
         });
     }
@@ -146,6 +158,27 @@ public class ShiftRegActivity extends AppCompatActivity {
 
 
 
+    public void setData()
+    {
+
+
+        String rr=r.getText().toString();
+        String yy=y.getText().toString();
+        String mm=m.getText().toString();
+        String dd=d.getText().toString();
+        String ee=e.getText().toString();
+        String ss=s.getText().toString();
+
+        addShift(rr,siteId,ss,ee,yy,mm,dd,0,0,siteId);
+
+    }
+
+public int randomId()
+{
+
+    int random = new Random().nextInt(61) + 20;
+    return random;
+}
 
 
 

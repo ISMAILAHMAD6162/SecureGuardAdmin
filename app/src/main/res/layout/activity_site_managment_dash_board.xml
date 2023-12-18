@@ -124,6 +124,7 @@
                    android:layout_height="match_parent">
 
                   <TextView
+                      android:id="@+id/guard_managment"
                       android:background="@drawable/style"
                       android:textSize="14sp"
                       android:text="GUARDS"

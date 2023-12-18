@@ -11,14 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:text="Shift Reg Activity"
-            android:id="@+id/shift_reg_act"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-
-        </TextView>
         <Button
             android:text="Back"
             android:id="@+id/shift_reg_back_buton"
@@ -28,30 +20,46 @@
 
         </Button>
         <EditText
+            android:hint="random"
+            android:id="@+id/randomid"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
         </EditText>
         <EditText
+            android:hint="year"
+            android:id="@+id/year"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
         </EditText>
         <EditText
+            android:hint="month"
+            android:id="@+id/month"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
         </EditText>
         <EditText
+            android:hint="days"
+            android:id="@+id/day"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
         </EditText>
         <EditText
+            android:hint="start time"
+            android:id="@+id/startTime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
         </EditText>
+        <EditText
+            android:hint="end time"
+            android:id="@+id/edntime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </EditText>
+
 
         <Button
 

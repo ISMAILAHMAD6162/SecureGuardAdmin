@@ -27,21 +27,55 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <LinearLayout
+                android:orientation="horizontal"
                 android:layout_weight="0.7"
-                android:paddingLeft="300dp"
+                android:weightSum="2"
                 android:layout_width="match_parent"
                 android:layout_height="0dp">
 
-                <TextView
-                    android:gravity="center"
-                    android:layout_gravity="center"
-                    android:textColor="@color/white"
-                    android:background="@color/colorPrimary"
-                    android:text="SOS"
-                    android:layout_width="match_parent"
+                <LinearLayout
+
+                    android:orientation="horizontal"
+                    android:layout_weight="1.5"
+                    android:layout_width="0dp"
+
                     android:layout_height="match_parent">
 
-                </TextView>
+                    <TextView
+                        android:paddingLeft="10sp"
+                        android:id="@+id/alert_state"
+                        android:layout_marginLeft="2dp"
+                        android:gravity="center_vertical"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@color/white"
+                        android:text="No Alert Pop"
+                        android:background="@color/colorPrimary"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    </TextView>
+
+
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/site_alert_idicate"
+                    android:orientation="horizontal"
+                    android:layout_weight="0.5"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/site_alert_state"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:textColor="@color/white"
+                        android:background="@color/colorPrimary"
+                        android:text="SOS"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                    </TextView>
+                </LinearLayout>
+
 
             </LinearLayout>
             <LinearLayout

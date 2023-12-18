@@ -5,11 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -26,6 +30,9 @@ import java.util.List;
 public class SiteActivity extends AppCompatActivity implements SiteItemClick{
 
 
+
+    private ProgressDialog progressDialog;
+    private LinearLayout layoutAlert;
     ImageView add_site;
     private RecyclerView site_Item_RecycleView;
     private SiteRecycleViewAdapter siteRecycleViewAdapter;
@@ -43,11 +50,12 @@ public class SiteActivity extends AppCompatActivity implements SiteItemClick{
         siteArrayList=new ArrayList<Site>();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         site_Item_RecycleView.setLayoutManager(linearLayoutManager);
-        siteRecycleViewAdapter=new SiteRecycleViewAdapter(siteArrayList,this::onClick);
+        siteRecycleViewAdapter=new SiteRecycleViewAdapter(siteArrayList,this,this);
         site_Item_RecycleView.setAdapter(siteRecycleViewAdapter);
 
 
         db=FirebaseFirestore.getInstance();
+        showLoadingDialog();
         getSiteData();
 
 
@@ -74,39 +82,25 @@ public class SiteActivity extends AppCompatActivity implements SiteItemClick{
                     List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
 
                     for (DocumentSnapshot d : list) {
-                        // after getting this list we are passing
-                        // that list to our object class.
-                        Site obj = d.toObject(Site.class);
-                        // and we will pass this object class
-                        // inside our arraylist which we have
-                        // created for recycler view.
 
+                        Site obj = d.toObject(Site.class);
                         siteArrayList.add(obj);
                         siteRecycleViewAdapter.notifyDataSetChanged();
 
                     }
 
-                    // after adding the data to recycler view.
-                    // we are calling recycler view notifyDataSetChanged
-                    // method to notify that data has been changed in recycler view.
-
+                       dismissLoadingDialog();
                     siteRecycleViewAdapter.notifyDataSetChanged();
-                 //   Toast.makeText(getApplicationContext(), siteArrayList.get(0).title, Toast.LENGTH_LONG).show();
 
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getApplicationContext(),"Faild",Toast.LENGTH_LONG).show();
+            //    Toast.makeText(getApplicationContext(),"Faild",Toast.LENGTH_LONG).show();
 
             }
         });
-
-
-
-
-
 
 }
 
@@ -119,4 +113,65 @@ public class SiteActivity extends AppCompatActivity implements SiteItemClick{
         startActivity(site_managment);
         //Toast.makeText(getApplicationContext(),"INDEX" +index,Toast.LENGTH_LONG).show();
     }
+
+    @Override
+    public void alertNotifcation(int index) {
+
+    }
+
+    @Override
+    public void sos_Alert_Click(int index) {
+
+        showAlertDialog();
+    }
+
+
+    private void showLoadingDialog() {
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Loading...");
+        progressDialog.setCancelable(false); // Set to true if you want the dialog to be cancelable
+        progressDialog.show();
+    }
+
+    private void dismissLoadingDialog() {
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.dismiss();
+        }
+    }
+
+
+    private void showAlertDialog() {
+        // Create an AlertDialog Builder
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        // Set the title and message for the dialog box
+        builder.setTitle("Alert Sending")
+                .setMessage("Your Alert Deliver to all secure guards");
+
+        // Set positive button and its click listener
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Do something when the "OK" button is clicked
+                dialog.dismiss();
+            }
+        });
+
+        /*
+        // Set negative button and its click listener
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Do something when the "Cancel" button is clicked
+                dialog.dismiss();
+            }
+        });
+
+         */
+
+        // Create and show the AlertDialog
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
 }

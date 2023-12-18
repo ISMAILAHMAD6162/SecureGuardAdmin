@@ -46,7 +46,7 @@ public class SiteRegActivity extends AppCompatActivity {
         CollectionReference siteRef = db.collection("Site");
 
         // adding our data to our courses object class.
-        Site site = new Site("Mall Road Lahore Ali Town","Ahmad","10000","900000",0,"Ahmad","ahmad@gmail.com","07868209729","ccccw","10-11-2023","20-12-2024");
+        Site site = new Site("Sahar Hotel","Ahmad","10000","900000",0,"Ahmad","ahmad@gmail.com","07868209729","ccccw","10-11-2023","20-12-2024",0,0);
 
         // below method is use to add data to Firebase Firestore.
         siteRef.document(site.title).set(site).addOnSuccessListener(new OnSuccessListener<Void>() {

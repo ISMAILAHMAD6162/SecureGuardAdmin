@@ -43,6 +43,7 @@ public class ShiftRecycelviewAdapter extends RecyclerView.Adapter<MyshiftViewHld
     @Override
     public void onBindViewHolder(@NonNull MyshiftViewHlder holder, int position) {
 holder.shift_item_id.setText(shiftArrayList.get(position).shiftId);
+holder.shift_date.setText(shiftArrayList.get(position).month+"-"+shiftArrayList.get(position).year+"-"+shiftArrayList.get(position).day);
 
     }
 
@@ -58,14 +59,16 @@ holder.shift_item_id.setText(shiftArrayList.get(position).shiftId);
 class MyshiftViewHlder extends RecyclerView.ViewHolder
 {
     CardView shiftcardView;
-    TextView shift_item_id;
+    TextView shift_item_id,shift_date;
+
 
     public MyshiftViewHlder(@NonNull View itemView,ShiftItemClickInterface shiftItemClickInterface)
     {
         super(itemView);
 
         shiftcardView=itemView.findViewById(R.id.shift_item);
-        shift_item_id=itemView.findViewById(R.id.shift_id_item_view);
+        shift_item_id=itemView.findViewById(R.id.shift_id);
+        shift_date=itemView.findViewById(R.id.shift_date);
 
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override

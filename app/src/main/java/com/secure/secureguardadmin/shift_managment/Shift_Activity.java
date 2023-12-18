@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,7 +41,7 @@ public class Shift_Activity extends AppCompatActivity implements ShiftItemClickI
 
    // private TextView site_title;
     private String site_id;
-    private Button add_new_shift;
+    private ImageView add_new_shift;
     private ShiftRecycelviewAdapter shiftRecycelviewAdapter;
     private RecyclerView shiftRecycleview;
     private List<String> shiftIdList;
@@ -117,21 +118,15 @@ public class Shift_Activity extends AppCompatActivity implements ShiftItemClickI
 
            if(shiftIdList.size()>0) {
 
-               // Reference to the collection
-               // Replace "your_collection_name" with the actual name of your Firestore collection
+
                CollectionReference collectionReference = db.collection("SHIFT");
 
-               // Use the 'whereIn' query to fetch documents based on an array of document IDs
                collectionReference.whereIn(FieldPath.documentId(), shiftIds)
                        .get()
                        .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                            @Override
                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
 
-                               //  Toast.makeText(getApplicationContext(), "get All shift with ID"+queryDocumentSnapshots.getDocuments(), Toast.LENGTH_LONG).show();
-
-                               // Handle the query result
-                               // queryDocumentSnapshots contains the documents matching the document IDs
                                for (DocumentSnapshot document : queryDocumentSnapshots.getDocuments()) {
                                    // Access the data of each document
 
@@ -145,10 +140,8 @@ public class Shift_Activity extends AppCompatActivity implements ShiftItemClickI
                                        shiftArrayListData.add(obj);
                                        shiftRecycelviewAdapter.notifyDataSetChanged();
 
-                                       Toast.makeText(getApplicationContext(), "get All shift with ID LOOP COUNT" + document.getString("shiftId"), Toast.LENGTH_LONG).show();
 
                                    }
-                                   // For example, String field = document.getString("field_name");
                                }
                            }
                        });
@@ -162,11 +155,12 @@ public class Shift_Activity extends AppCompatActivity implements ShiftItemClickI
     public void shiftItemClicklistne(int index) {
 
 
-        Intent intent=new Intent(getApplicationContext(),Shift_Managment_Activity.class);
-        intent.putExtra("ID",shiftArrayListData.get(index).shiftId);
 
+        Intent intent=new Intent(getApplicationContext(),Shift_Managment_Activity.class);
+        intent.putExtra("object",shiftArrayListData.get(index));
         startActivity(intent);
-        Toast.makeText(getApplicationContext(), "Click Index" + index, Toast.LENGTH_LONG).show();
+
 
     }
+
 }

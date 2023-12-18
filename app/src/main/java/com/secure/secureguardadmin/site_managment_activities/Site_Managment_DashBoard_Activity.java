@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.icu.util.Calendar;
 import android.os.Bundle;
@@ -24,6 +25,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.secure.secureguardadmin.Models.Shift;
 import com.secure.secureguardadmin.R;
+import com.secure.secureguardadmin.shift_managment.ShiftItemClickInterface;
 import com.secure.secureguardadmin.shift_managment.ShiftRegActivity;
 import com.secure.secureguardadmin.shift_managment.ShiftReyceviewAdapter;
 import com.secure.secureguardadmin.shift_managment.Shift_Activity;
@@ -31,9 +33,10 @@ import com.secure.secureguardadmin.shift_managment.Shift_Activity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Site_Managment_DashBoard_Activity extends AppCompatActivity {
+public class Site_Managment_DashBoard_Activity extends AppCompatActivity implements ShiftItemClickInterface {
 
 
+    private ProgressDialog progressDialog;
     private ShiftReyceviewAdapter shiftReyceviewAdapter;
     private RecyclerView shiftRecycleview;
     private List<String> shiftIdList;
@@ -41,12 +44,14 @@ public class Site_Managment_DashBoard_Activity extends AppCompatActivity {
     private TextView site_title;
     private String siteId;
     private FirebaseFirestore db;
-    private TextView start_shift,open_checkpoin_buton;
+    private TextView start_shift,open_checkpoin_buton,guard_buton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_site_managment_dash_board);
+
         site_title=findViewById(R.id.sit_title_managment);
+        guard_buton=findViewById(R.id.guard_managment);
         start_shift=findViewById(R.id.start_shift);
         open_checkpoin_buton=findViewById(R.id.open_check_points);
         Intent intent = getIntent();
@@ -55,14 +60,24 @@ public class Site_Managment_DashBoard_Activity extends AppCompatActivity {
         db=FirebaseFirestore.getInstance();
         shiftArrayListData=new ArrayList<Shift>();
         shiftIdList=new ArrayList<String>();
-
-        shiftReyceviewAdapter=new ShiftReyceviewAdapter(shiftArrayListData);
+        shiftReyceviewAdapter=new ShiftReyceviewAdapter(shiftArrayListData,this);
         shiftRecycleview=findViewById(R.id.shift_item_recyclerview);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         shiftRecycleview.setLayoutManager(linearLayoutManager);
         shiftRecycleview.setAdapter(shiftReyceviewAdapter);
         getTodayShift();
 
+
+        guard_buton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                    Intent intent=new Intent(getApplicationContext(), SiteAssignGuardActivity.class);
+                intent.putExtra("ID",siteId);
+                    startActivity(intent);
+
+            }
+        });
         start_shift.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -190,4 +205,11 @@ public class Site_Managment_DashBoard_Activity extends AppCompatActivity {
             }
         }
     }
+
+    @Override
+    public void shiftItemClicklistne(int index) {
+        Toast.makeText(getApplicationContext(),"ItemClicked"+index,Toast.LENGTH_LONG).show();
+    }
+
+
 }

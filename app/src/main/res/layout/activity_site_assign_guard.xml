@@ -65,7 +65,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp">
             <Button
-                android:text="NEW REQUEST"
+                android:text="AVAILABLE GUARD PROFILES"
                 android:gravity="center"
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
@@ -81,7 +81,7 @@
 
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/new_profile_request"
+                android:id="@+id/aaliable_recyclview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
@@ -97,7 +97,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp">
             <Button
-                android:text="Registered Guards Profile"
+                android:text="GUARD ADDED ON SITE"
                 android:gravity="center"
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
@@ -111,7 +111,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp">
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/guard_profile"
+                android:id="@+id/added_recyclview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">

@@ -1,8 +1,13 @@
 package com.secure.secureguardadmin.site_managment_activities;
+import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,11 +21,13 @@ public class SiteRecycleViewAdapter extends RecyclerView.Adapter<MySiteRecycleVi
 
     SiteItemClick siteItemClick;
     ArrayList<Site> siteArrayList;
-    SiteRecycleViewAdapter(ArrayList<Site> siteArrayList,SiteItemClick siteItemClick)
+    Context context;
+    SiteRecycleViewAdapter(ArrayList<Site> siteArrayList,SiteItemClick siteItemClick,Context context)
     {
 
         this.siteItemClick=siteItemClick;
         this.siteArrayList=siteArrayList;
+        this.context=context;
     }
 
     @NonNull
@@ -35,10 +42,34 @@ public class SiteRecycleViewAdapter extends RecyclerView.Adapter<MySiteRecycleVi
     @Override
     public void onBindViewHolder(@NonNull MySiteRecycleViewHolder mySiteRecycleViewHolder, int position) {
 
+
+
+        mySiteRecycleViewHolder.site_alert_state.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+             siteItemClick.sos_Alert_Click(position);
+            }
+        });
+
+
         if (siteArrayList.size()>0)
         {
 
-            mySiteRecycleViewHolder.siteTitle.setText(siteArrayList.get(position).title);
+          mySiteRecycleViewHolder.siteTitle.setText(siteArrayList.get(position).title);
+
+            if(siteArrayList.get(position).state==13) {
+
+                try {
+
+                    mySiteRecycleViewHolder.alertTitle.setText("Alert Found");
+                    mySiteRecycleViewHolder.alertTitle.setBackgroundColor(Color.parseColor("#FF0000"));
+                     mySiteRecycleViewHolder.alertLayoout.setBackgroundColor(Color.parseColor("#FF0000")); // Example color: Pink
+
+                } catch (IllegalArgumentException e) {
+
+                }
+            }
 
         }
 
@@ -57,11 +88,15 @@ public class SiteRecycleViewAdapter extends RecyclerView.Adapter<MySiteRecycleVi
 class MySiteRecycleViewHolder extends RecyclerView.ViewHolder
 {
 
-     TextView siteTitle;
+     TextView siteTitle,alertTitle,site_alert_state;
+     LinearLayout alertLayoout;
 
     public MySiteRecycleViewHolder(@NonNull View itemView,SiteItemClick siteItemClick) {
         super(itemView);
         siteTitle=itemView.findViewById(R.id.site_item_title);
+        alertLayoout=itemView.findViewById(R.id.site_alert_idicate);
+        alertTitle=itemView.findViewById(R.id.alert_state);
+        site_alert_state=itemView.findViewById(R.id.site_alert_state);
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
